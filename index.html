@@ -281,14 +281,14 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBllBxzV0g80LmXYTDgEApl5Qd6TSMyo58",
-    authDomain: "diamond-bd63e.firebaseapp.com",
-    projectId: "diamond-bd63e",
-    storageBucket: "diamond-bd63e.firebasestorage.app",
-    messagingSenderId: "41402906848",
-    appId: "1:41402906848:web:99291660d88c73397d7885"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBllBxzV0g80LmXYTDgEApl5Qd6TSMyo58",
+  authDomain: "diamond-bd63e.firebaseapp.com",
+  projectId: "diamond-bd63e",
+  storageBucket: "diamond-bd63e.firebasestorage.app",
+  messagingSenderId: "41402906848",
+  appId: "1:41402906848:web:99291660d88c73397d7885"
+};
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
