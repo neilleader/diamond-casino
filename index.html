@@ -250,7 +250,12 @@
           <option value="Stagiaire">Stagiaire</option>
           <option value="Agent Polyvalent">Agent Polyvalent</option>
           <option value="Manager">Manager de Salle</option>
-          <option value="Sécurité">Agent de Sécurité</option>
+          <option value="Agent de Sécurité">Agent de Sécurité</option>
+          <option value="Responsable de Sécurité">Responsable de Sécurité</option>
+          <option value="Responsable Animation">Responsable Animation</option>
+          <option value="DRH">DRH</option>
+          <option value="Co-Patron">Co-Patron</option>
+          <option value="Patron">Patron</option>
         </select>
         <input type="number" id="f-heures" placeholder="Heures / Quota">
         <input type="text" id="f-tel" placeholder="Téléphone">
@@ -292,13 +297,18 @@
   window.employees = [];
   window.editingId = null;
 
-  const rates = { "Stagiaire": 40000, "Agent Polyvalent": 50000, "Manager": 80000, "Sécurité": 15000 };
+  const rates = { "Stagiaire": 40000, "Agent Polyvalent": 50000, "Manager": 70000, "Agent de Sécurité": 60000, "Responsable de Sécurité": 90000, "Responsable Animation": 90000, "DRH": 90000, "Co-Patron": 110000, "Patron": 120000 };
 
   const missions = {
-    "Manager": "• Superviser les croupiers...\n• Piloter l'accueil VIP...",
-    "Stagiaire": "Superviser les croupiers...\nResponsable du relevé quotidien...",
-    "Agent Polyvalent": "• Accueil et orientation...\n• Service au bar...",
-    "Sécurité": "• Filtrage des entrées...\n• Surveillance constante..."
+    "Manager": "• Superviser les croupiers et les chefs de table pour garantir le respect des règles et arbitrer les litiges.\n• Piloter l'accueil exclusif des membres VIP / Supra VIP et valider l'accès aux suites et au Penthouse.\n• Superviser les relevés des machines à sous et la clôture des caisses avant transfert au comptage.\n• Coordonner les événements au Music Locker et la logistique des véhicules sur le podium.\n• Diriger les interventions de sécurité pour neutraliser les tentatives de fraude ou de triche.\n• Manager les équipes de voituriers et prestataires pour maintenir l'excellence opérationnelle.\n• Analyser les retours clients et proposer des évolutions stratégiques pour les programmes de fidélité.\n• Responsable de la formation, de la motivation et du respect du règlement par le personnel.",
+    "Stagiaire": "• Soutenir les croupiers dans la préparation des tables (Blackjack, Roulette, Poker) et veiller à la fluidité des rotations de jetons.\n• Assurer la réception des membres possédant une carte \"Silver\", \"Gold\" ou \"Diamond\" et coordonner l'accès aux suites de luxe et au toit-terrasse.\n• Assister le responsable de salle dans le relevé quotidien des revenus des machines à sous et des tables de jeux.\n• Participer à l'organisation des soirées thématiques au Music Locker et à la logistique des expositions de véhicules de prestige sur le podium tournant.\n• Collaborer avec les équipes de sécurité pour identifier les comportements suspects ou les tentatives de fraude aux jeux.\n• Superviser le bon fonctionnement du service de voiturier et la coordination avec les services de nettoyage pour le maintien de l'éclat du casino.\n• Recueillir les avis des joueurs et proposer des améliorations sur les programmes de fidélité et les récompenses.",
+    "Agent Polyvalent": "• Assister les croupiers dans la préparation technique des tables et garantir l'approvisionnement des jetons.\n• Assurer l'accueil personnalisé des membres VIP et Supra VIP vers les suites ou le toit-terrasse.\n• Seconder le responsable de salle pour le relevé des machines à sous et la sécurisation des recettes.\n• Collaborer à l'organisation des soirées au Music Locker et à la logistique du podium rotatif.\n• Agir en relais sécurité en identifiant tout comportement suspect ou irrégularité aux tables.\n• Superviser le service de voiturier et coordonner le nettoyage pour maintenir l'éclat du casino.\n• Collecter les retours des joueurs et soumettre des propositions d'amélioration à la Direction.",
+    "Agent de Sécurité": "• Filtrage des entrées : Contrôler l'identité et le dress code des clients.\n• Surveillance constante du plancher de jeu et des flux de personnes via la télésurveillance.\n• Intervention immédiate pour neutraliser tout conflit ou comportement agressif.\n• Escorter les transferts de fonds et sécuriser les accès aux zones réservées.\n• Veiller à l'application stricte des consignes de sécurité incendie et de secours.",
+    "Responsable Sécurité": "• Direction du département : Superviser les agents et établir les plannings de ronde.\n• Audit de vulnérabilité : Identifier les failles et proposer des améliorations technologiques.\n• Gestion de crise : Coordonner les interventions lors d'incidents majeurs ou fraudes.\n• Liaison autorités : Assurer l'interface avec la police et les régulateurs des jeux.\n• Enquêtes internes : Mener des investigations sur les suspicions de triche ou de malversation.",
+    "Responsable Animation": "• Programmation artistique : Planifier les artistes et DJs du Music Locker.\n• Scénographie du podium : Gérer l'exposition des véhicules et la mise en scène lumineuse.\n• Marketing événementiel : Concevoir des soirées thématiques et tournois de prestige.\n• Gestion des partenariats : Négocier avec les agences et prestataires de divertissement.\n• Ambiance client : Garantir une atmosphère sonore et visuelle haut de gamme constante.",
+    "DRH": "• Recrutement d'élite : Sourcer et sélectionner les meilleurs profils du secteur.\n• Gestion des carrières : Piloter la formation continue et les promotions internes.\n• Conformité légale : Garantir le respect du droit du travail et des régulations des jeux.\n• Climat social : Médiation interne et veille au bien-être des équipes.\n• Administration : Supervision de la paie, des contrats et des dossiers disciplinaires.",
+    "Co-Patron": "• Gestion opérationnelle : Seconder le Patron dans les décisions stratégiques quotidiennes.\n• Optimisation financière : Valider les budgets de fonctionnement et les investissements.\n• Qualité de service : Garantir le maintien des standards 5 étoiles du casino.\n• Représentation : Incarner l'image de marque auprès des clients Supra VIP.\n• Validation finale : Co-signer les contrats majeurs et superviser les cadres dirigeants.",
+    "Patron": "• Vision stratégique : Définir les objectifs de rentabilité et le développement du casino.\n• Autorité suprême : Arbitrage final sur les décisions financières et disciplinaires.\n• Gestion du patrimoine : Responsable de la licence de jeu et de l'actif immobilier.\n• Expansion : Analyser le marché pour l'acquisition de nouvelles technologies ou tables.\n• Garant de l'éthique : Assurer l'intégrité absolue et la réputation de l'établissement."
   };
 
   onSnapshot(empRef, (snapshot) => {
@@ -308,8 +318,7 @@
     updateAccessSelect();
   });
 
-  // --- LOGIN / LOGOUT ---
-  window.attemptLogin = () => {
+   window.attemptLogin = () => {
     const id = document.getElementById('auth-id').value;
     const pass = document.getElementById('auth-pass').value;
     if (id === "Diamond" && pass === "1234") {
@@ -329,7 +338,6 @@
     document.getElementById('auth-msg').style.display = 'none';
   };
 
-  // --- NAVIGATION ---
   window.tab = (id, el) => {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.menu li').forEach(l => l.classList.remove('active'));
@@ -337,7 +345,6 @@
     if(el) el.classList.add('active');
   };
 
-  // --- GESTION DES ACCÈS ---
   window.updateAccessSelect = () => {
       const sel = document.getElementById('access-sel-emp');
       if(!sel) return;
@@ -371,7 +378,6 @@
       } catch (e) { alert("Erreur: " + e.message); }
   };
 
-  // --- RESTE DU SCRIPT (Personnel, etc.) ---
   window.openEmpModal = (id = null) => {
     window.editingId = id;
     if(id) {
@@ -458,7 +464,48 @@
     const dateSel = document.getElementById('gen-date').value || "XX/XX/XXXX";
     const e = window.employees.find(x => x.id == id);
     if(!e) return;
-    const contrat = `CONTRAT DE TRAVAIL - DIAMOND CASINO\n\nEntre Mr LEADER et ${e.nom.toUpperCase()} ${e.prenom}\nPoste : ${e.grade}\nDate d'entrée : ${dateSel}\n\nMISSIONS :\n${missions[e.grade]}\n\nFait au Diamond Casino le ${new Date().toLocaleDateString()}`;
+    const contrat = `CONTRAT DE TRAVAIL À DURÉE INDÉTERMINÉE
+
+Entre les soussignés :
+
+Le Diamond Casino & Resort, situé à l'angle de Vinewood Park Drive et de Mirror Park Boulevard, Los Santos, représenté par Mr LEADER, agissant en qualité d’employeur.
+
+D’une part,
+
+Et,
+
+${e.nom.toUpperCase()} ${e.prenom}, né.e le ${e.naissance}, agissant en qualité d’employé.e.
+
+D’autre part, il a été convenu ce qui suit :
+
+Article 1. Engagement
+Le Diamond Casino engage ${e.prenom} ${e.nom.toUpperCase()}, à compter du ${dateSel}. Pour l’exercice de son activité, le.a salarié.é sera placé.e sous l’autorité de Mr LEADER, ou de toute autre personne déléguée.
+
+Article 2. Fonction et qualifications
+L’employé.e est engagé.e en qualité de ${e.grade} à temps complet.
+Ses missions principales sont les suivantes :
+${missions[e.grade]}
+
+Article 3. Rémunération
+L’employé.e percevra une rémunération de ${rates[e.grade].toLocaleString()} $ par heure effectuée.
+S’ajoutent à cette rémunération des primes potentielles (assiduité, exceptionnelle) validées par la Direction.
+
+Article 4. Rupture du contrat
+L’employé.e est soumis.e à des avertissements en cas de manquement au quota, de comportement inapproprié ou d’absence prolongée. Après trois avertissements, un licenciement immédiat sera prononcé. En cas de rupture (démission ou licenciement), aucun préavis ni solde de tout compte ne seront appliqués.
+
+Article 5. Lieu de travail
+Le lieu de travail est le Diamond Casino. Toute activité en service hors de ce périmètre sans autorisation s'expose à des sanctions.
+
+Article 6. Horaires de travail
+Le temps de travail est flexible mais soumis à un quota minimum de 12 heures par semaine. Ces modalités peuvent évoluer selon les besoins du Casino.
+
+Article 7. Clause d’exclusivité
+L’employé.e s’engage à exercer son activité de manière exclusive pour le Diamond Casino. Toute autre activité professionnelle parallèle doit faire l’objet d’une approbation écrite de la Direction.
+
+Article 8. Clause de confidentialité et Règlement
+En signant ce contrat, l’employé.e reconnaît avoir pris connaissance du Règlement Intérieur du Diamond Casino. Il s'engage à ne divulguer aucune information interne (données clients, procédures de sécurité, flux financiers) sous peine de poursuites.
+
+Fait au Diamond Casino, le ${new Date().toLocaleDateString()}`;
     document.getElementById('contract-paper').innerText = contrat;
   };
 
