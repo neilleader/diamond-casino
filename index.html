@@ -250,7 +250,7 @@
           <option value="Stagiaire">Stagiaire</option>
           <option value="Agent Polyvalent">Agent Polyvalent</option>
           <option value="Manager">Manager de Salle</option>
-          <option value="Agent de Sécurité">Agent de Sécurité</option>
+          <option value="Agent Polyvalent Confirmé">Agent Polyvalent Confirmé</option>
           <option value="Responsable de Sécurité">Responsable de Sécurité</option>
           <option value="Responsable Animation">Responsable Animation</option>
           <option value="DRH">DRH</option>
@@ -297,7 +297,7 @@ const firebaseConfig = {
   window.employees = [];
   window.editingId = null;
 
-  const rates = { "Stagiaire": 40000, "Agent Polyvalent": 50000, "Manager": 70000, "Agent de Sécurité": 60000, "Responsable de Sécurité": 90000, "Responsable Animation": 90000, "DRH": 90000, "Co-Patron": 110000, "Patron": 120000 };
+  const rates = { "Stagiaire": 30000, "Agent Polyvalent": 40000,"Agent Polyvalent Confirmé": 45000, "Manager": 55000, "Responsable de Sécurité": 60000, "Responsable Animation": 60000, "DRH": 70000, "Co-Patron": 90000, "Patron": 100000 };
 
   const missions = {
     "Manager": "• Superviser les croupiers et les chefs de table pour garantir le respect des règles et arbitrer les litiges.\n• Piloter l'accueil exclusif des membres VIP / Supra VIP et valider l'accès aux suites et au Penthouse.\n• Superviser les relevés des machines à sous et la clôture des caisses avant transfert au comptage.\n• Coordonner les événements au Music Locker et la logistique des véhicules sur le podium.\n• Diriger les interventions de sécurité pour neutraliser les tentatives de fraude ou de triche.\n• Manager les équipes de voituriers et prestataires pour maintenir l'excellence opérationnelle.\n• Analyser les retours clients et proposer des évolutions stratégiques pour les programmes de fidélité.\n• Responsable de la formation, de la motivation et du respect du règlement par le personnel.",
