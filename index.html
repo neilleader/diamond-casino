@@ -413,7 +413,7 @@ const firebaseConfig = {
   window.deleteEmp = async (id) => { if(confirm("Supprimer ce collaborateur ?")) await deleteDoc(doc(db, "employees", id)); };
 
   window.updatePrime = async (id, type) => {
-    const p_list = { "aucune": 0, "assiduite": 500, "exceptionnelle": 1000, "risque": 1500 };
+    const p_list = { "aucune": 0, "assiduite": 25000, "exceptionnelle": 30000, "risque": 1500 };
     await updateDoc(doc(db, "employees", id), { prime_type: type, bonus: p_list[type] });
   };
 
