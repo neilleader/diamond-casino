@@ -214,16 +214,23 @@ html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
     </div>
   </div>
 
-  <div id="gen" class="section">
+<div id="gen" class="section">
     <div class="page-head"><div><h2>Générateur de contrat</h2><p>Choisissez un salarié et une date d'embauche.</p></div></div>
     <div class="card">
       <div class="form-grid" style="margin-top:0">
-        <select id="gen-select-emp" onchange="previewGen()"><option>Choisir un salarié…</option></select>
-        <input type="date" id="gen-date" oninput="previewGen()">
+        <div>
+          <label class="lbl">Salarié</label>
+          <select id="gen-select-emp"><option value="">Choisir un salarié…</option></select>
+        </div>
+        <div>
+          <label class="lbl">Date d'embauche</label>
+          <input type="date" id="gen-date">
+        </div>
       </div>
-      <div id="contract-paper">Sélectionnez un salarié pour afficher son contrat.</div>
-      <button class="btn btn-primary" style="margin-top:18px;width:100%" onclick="copyGen()"><i class='bx bx-copy'></i> Copier le contrat</button>
+      <button class="btn btn-primary" style="margin-top:24px;width:100%" onclick="generateContract()"><i class='bx bx-file'></i> Générer le contrat</button>
     </div>
+    <!-- Mettez la ligne invisible ici -->
+    <div id="contract-paper" style="display:none;"></div>
   </div>
 
   <div id="docs" class="section">
@@ -550,10 +557,27 @@ En signant ce contrat, l’employé.e reconnaît avoir pris connaissance du Règ
 
 Fait au Diamond Casino, le ${new Date().toLocaleDateString('fr-FR')}`;
 };
-window.copyGen = () => {
-  navigator.clipboard.writeText($('contract-paper').innerText)
-    .then(() => toast("Contrat copié."))
-    .catch(() => toast("Copie impossible.", true));
+window.generateContract = () => {
+  const empId = $('gen-select-emp').value;
+  if (!empId) {
+    return toast("Veuillez choisir un salarié.", true);
+  }
+  
+  const e = window.employees.find(x => x.id === empId);
+  if (!e) return;
+
+  const rate = rates[e.grade] || 0;
+  const salaireTotal = (e.heures || 0) * rate + (e.bonus || 0);
+
+  // Remplacez l'URL ci-dessous par l'URL de votre application Web Google Apps Script
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbzsIP10joZY4r33A8g0VgCce4cSzY5JQsILi1FjjOyZhKVQf589Tqu_0f2tLqy1rtsuHA/exec";
+
+  // Construction de l'URL avec les paramètres
+  const url = `${webAppUrl}?nom=${encodeURIComponent(e.nom || '')}&prenom=${encodeURIComponent(e.prenom || '')}&montant=${encodeURIComponent(salaireTotal)}`;
+
+  // Ouvre le script Google dans un nouvel onglet (ce qui va générer le doc et l'ouvrir)
+  window.open(url, '_blank');
+  toast("Génération du contrat en cours...");
 };
 
 /* Documents */
